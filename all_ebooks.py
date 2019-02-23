@@ -9,7 +9,7 @@ def get_all():
 	books={}
 
 	woblink(books)
-	virtualo(books)
+	#virtualo(books)
 	ebp_audio(books)
 	ebookpoint(books)
 
