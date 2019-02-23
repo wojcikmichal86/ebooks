@@ -20,5 +20,8 @@ def virtualo(books):
     print(len(books))
     return books
 
+if __name__ == "__main__":
+    virtualo({})
+
 
 
