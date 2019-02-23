@@ -17,6 +17,7 @@ def find_book():
 @app.route("/all")
 def all():
 	get_all()
+	return "Books uploaded"
 
 
 
