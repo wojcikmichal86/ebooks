@@ -25,3 +25,6 @@ def get_all():
 
 	with open('all_books.json', 'w') as fp:
 	    json.dump(big_json, fp)
+
+if __name__ == "__main__":
+    get_all()
