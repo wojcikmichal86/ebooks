@@ -1,7 +1,7 @@
 from flask import Flask
 from flask import jsonify
 import json
-from all_books import get_all
+from all_ebooks import get_all
 
 app = Flask(__name__)
 
@@ -9,10 +9,10 @@ app = Flask(__name__)
 def hello():
     return "Hello World!"
 
-@app.route("/7214")
+@app.route("/1")
 def find_book():
 	all_books = json.load(open("all_books.json"))
-	return jsonify(all_books['7214'])
+	return jsonify(all_books['1'])
 
 @app.route("/all")
 def all():
