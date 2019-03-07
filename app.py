@@ -30,7 +30,7 @@ def all():
 	get_all()
 	return "Books uploaded"
 
-@app.rount("/woblink")
+@app.route("/woblink")
 def wob():
 	virtualo()
 	return "virtualo uploaded"
