@@ -4,11 +4,14 @@ certifi==2018.11.29
 chardet==3.0.4
 Click==7.0
 Flask==1.0.2
+gunicorn==19.9.0
+heroku==0.1.4
 idna==2.8
 itsdangerous==1.1.0
 Jinja2==2.10
 lxml==4.3.1
 MarkupSafe==1.1.0
+python-dateutil==1.5
 requests==2.21.0
 urllib3==1.24.1
 urlopen==1.0.0
