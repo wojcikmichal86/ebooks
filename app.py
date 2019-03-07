@@ -32,8 +32,8 @@ def all():
 
 @app.route("/woblink")
 def wob():
-	virtualo()
-	return "virtualo uploaded"
+	woblink({})
+	return "woblink uploaded"
 
 
 
