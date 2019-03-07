@@ -3,10 +3,13 @@ from flask import jsonify
 import json
 from all_ebooks import get_all
 from werkzeug.routing import BaseConverter
-from virtualo import virtualo
-from woblink import woblink
-from ebp_audio import ebp_audio
+from apscheduler.scheduler import Scheduler
 
+
+sched = Scheduler() # Scheduler object
+sched.start()
+
+sched.add_interval_job(get_all,minutes=1440)
 
 app = Flask(__name__)
 
@@ -25,26 +28,6 @@ def hello():
 def find_book(u):
 	all_books = json.load(open("all_books.json"))
 	return jsonify(all_books["%s" %(u)])
-
-@app.route("/all")
-def all():
-	get_all()
-	return "Books uploaded"
-
-@app.route("/woblink")
-def wob():
-	woblink({})
-	return "woblink	 uploaded"
-
-@app.route("/audio")
-def audio():
-	ebp_audio({})
-	return "audio uploaded"
-
-
-
-
-
 
 
 if __name__ == '__main__':
