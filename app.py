@@ -5,6 +5,7 @@ from all_ebooks import get_all
 from werkzeug.routing import BaseConverter
 from virtualo import virtualo
 from woblink import woblink
+from ebp_audio import ebp_audio
 
 
 app = Flask(__name__)
@@ -33,7 +34,13 @@ def all():
 @app.route("/woblink")
 def wob():
 	woblink({})
-	return "woblink uploaded"
+	return "woblink	 uploaded"
+
+@app.route("/audio")
+def audio():
+	ebp_audio({})
+	return "audio uploaded"
+
 
 
 
