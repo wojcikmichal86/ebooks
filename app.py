@@ -3,6 +3,9 @@ from flask import jsonify
 import json
 from all_ebooks import get_all
 from werkzeug.routing import BaseConverter
+from virtualo import virtualo
+from woblink import woblink
+
 
 app = Flask(__name__)
 
@@ -26,6 +29,13 @@ def find_book(u):
 def all():
 	get_all()
 	return "Books uploaded"
+
+@app.rount("/woblink")
+def wob():
+	virtualo()
+	return "virtualo uploaded"
+
+
 
 
 
