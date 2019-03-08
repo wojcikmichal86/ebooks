@@ -7,10 +7,10 @@ from apscheduler.scheduler import Scheduler
 
 
 sched = Scheduler() # Scheduler object
+
+
+sched.add_interval_job(get_all,minutes=720)
 sched.start()
-
-sched.add_interval_job(get_all,minutes=1440)
-
 app = Flask(__name__)
 
 class RegexConverter(BaseConverter):
@@ -27,7 +27,7 @@ def hello():
 @app.route('/<regex("[abcABC0-9]{1,7}"):u>')
 def find_book(u):
 	all_books = json.load(open("all_books.json"))
-	return jsonify(all_books["%s" %(u)])
+	return jsonify(all_books["%s" %(u)]) 
 
 
 if __name__ == '__main__':

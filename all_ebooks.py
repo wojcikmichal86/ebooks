@@ -3,15 +3,18 @@ from virtualo import virtualo
 from ebp_audio import ebp_audio
 from ebookpoint import ebookpoint
 import json
+from datetime import datetime
+
 
 
 def get_all():
-	books={}
-
-	woblink(books)
+	print("Updating database on: "+str(datetime.now()))
+	updated = "Last updated on: "+str(datetime.now())
+	books = {}
+	#woblink(books)
 	#virtualo(books)
 	ebp_audio(books)
-	ebookpoint(books)
+	#ebookpoint(books)
 
 	big_json = {}
 	titles = []
@@ -19,9 +22,7 @@ def get_all():
 		titles.append(book)
 
 	for i in range(len(titles)):
-		big_json.update({str(i): {'title': titles[i], 'prices': books[titles[i]]}})
-
-	print(big_json)
+		big_json.update({str(i): {'title': titles[i], 'prices': books[titles[i]], 'updated': updated}})
 
 	with open('all_books.json', 'w') as fp:
 	    json.dump(big_json, fp)
