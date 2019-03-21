@@ -9,13 +9,12 @@ from datetime import datetime
 
 def get_all():
 	print("Updating database on: "+str(datetime.now()))
-	'''
 	updated = "Last updated on: "+str(datetime.now())
 	books = {}
-	woblink(books)
-	virtualo(books)
+	#woblink(books)
+	#virtualo(books)
 	ebp_audio(books)
-	ebookpoint(books)
+	#ebookpoint(books)
 
 	big_json = {}
 	titles = []
@@ -27,7 +26,6 @@ def get_all():
 
 	with open('all_books.json', 'w') as fp:
 	    json.dump(big_json, fp, ensure_ascii=False, indent=4)
-	'''
 
 if __name__ == "__main__":
     get_all()
