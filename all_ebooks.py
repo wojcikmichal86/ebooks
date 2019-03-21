@@ -24,7 +24,7 @@ def get_all():
 	for i in range(len(titles)):
 		big_json.update({str(i): {'title': titles[i], 'prices': books[titles[i]], 'updated': updated}})
 
-	with open('all_books.json', 'w') as fp:
+	with open('all_books.json', 'w', ensure_ascii=False, indent=4) as fp:
 	    json.dump(big_json, fp)
 
 if __name__ == "__main__":
