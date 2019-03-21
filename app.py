@@ -9,7 +9,7 @@ from apscheduler.scheduler import Scheduler
 sched = Scheduler() # Scheduler object
 
 
-sched.add_interval_job(get_all,minutes=720)
+sched.add_interval_job(get_all,minutes=1)
 sched.start()
 app = Flask(__name__)
 
