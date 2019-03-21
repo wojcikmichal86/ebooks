@@ -12,7 +12,7 @@ def get_all():
 	updated = "Last updated on: "+str(datetime.now())
 	books = {}
 	#woblink(books)
-	#virtualo(books)
+	virtualo(books)
 	ebp_audio(books)
 	#ebookpoint(books)
 
