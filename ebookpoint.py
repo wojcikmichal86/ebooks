@@ -9,15 +9,19 @@ def ebookpoint(books):
     #file.encoding = "utf-8"
     plain_text = file.text
     soup = BeautifulSoup(plain_text, "html.parser")
-    names = soup.findAll("name")
-    prices = soup.findAll("o")
-    for i in range(len(names)):
-        if names[i].contents[0] not in books.keys():
-            books[names[i].contents[0]] = {'ebookpoint': prices[i]['price']}
+    book = soup.find("o")
+    print(book)
+    while book.find_next_sibling('o') is not None:
+        name = book.find('name')
+        if name.contents[0] not in books.keys():
+            books[name.contents[0]] = {'ebookpoint': book['price']}
         else:
-            books[names[i].contents[0]].update({'ebookpoint': prices[i]['price']})
+            books[name.contents[0]].update({'ebookpoint': book['price']})
+        book2 = book.find_next_sibling('o')
+        print(book2)
+        book = book2
     print(time() - current_time)
-    print(len(books))
+    print('Current number of books: '+str(len(books)))
     return books
 
 if __name__ == "__main__":
