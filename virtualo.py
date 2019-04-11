@@ -7,8 +7,11 @@ from time import time
 def virtualo(books):
     current_time = time()
     file = requests.get('https://virtualo.pl/data/ceneo_ebooks.xml')
+    print('xml requested')
     file.encoding = "utf-8"
+    print('encoded')
     plain_text = file.text
+    print('plain text created')
     soup = BeautifulSoup(plain_text, "lxml-xml")
     print('soup loaded')
     book = soup.find("o")
