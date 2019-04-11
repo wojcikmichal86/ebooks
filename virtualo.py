@@ -19,7 +19,7 @@ def virtualo(books):
     print('o tag located')
     i = 1
     while book.find_next_sibling('o') is not None:
-        print('book number {} found'.format(i))
+        #print('book number {} found'.format(i))
         name = book.find('name')
         if name.contents[0] not in books.keys():
             books[name.contents[0]] = {'virtualo': book['price']}
