@@ -5,11 +5,6 @@ from ebookpoint import ebookpoint
 import json
 from datetime import datetime
 
-
-
-
-
-
 def get_all():
 	print("Updating database on: "+str(datetime.now()))
 	updated = "Last updated on: "+str(datetime.now())

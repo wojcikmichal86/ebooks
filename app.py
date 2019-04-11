@@ -5,13 +5,13 @@ from all_ebooks import get_all
 from werkzeug.routing import BaseConverter
 from apscheduler.scheduler import Scheduler
 
+app = Flask(__name__)
+
 
 sched = Scheduler() # Scheduler object
-
-
-sched.add_interval_job(get_all,minutes=10)
+sched.add_interval_job(get_all, minutes=10)
 sched.start()
-app = Flask(__name__)
+	
 
 class RegexConverter(BaseConverter):
     def __init__(self, url_map, *items):
@@ -31,4 +31,4 @@ def find_book(u):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, use_reloader=False)
