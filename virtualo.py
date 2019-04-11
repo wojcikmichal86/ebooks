@@ -6,6 +6,7 @@ from time import time
 
 def virtualo(books):
     current_time = time()
+    print('requesting xml')
     file = requests.get('https://virtualo.pl/data/ceneo_ebooks.xml')
     print('xml requested')
     file.encoding = "utf-8"
