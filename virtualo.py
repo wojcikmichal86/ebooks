@@ -1,5 +1,4 @@
 import requests
-from bs4 import BeautifulSoup
 from time import time
 from xml.dom import minidom
 
@@ -12,18 +11,36 @@ def virtualo(books):
     print('xml requested')
     file.encoding = "utf-8"
     print('encoded')
+    data = file.text
+    while data.find('<name>') > 0:
+        price_start_index = data.find('price=')
+        data = data[price_start_index+7:]
+        price_end_index = data.find('" ')
+        price = data[:price_end_index]
+        name_start_index = data.find('<name>')
+        name_end_index = data.find('</name>')
+        name = data[name_start_index+15:name_end_index-3]
+        print(name)
+        print(price)
+        print(len(books))
+        if name not in books.keys():
+            books[name] = {'virtualo': price}
+        else:
+            books[name].update({'virtualo': price})
+        data = data[name_end_index+10:]
+
+
+
+    '''
     DOMTree = minidom.parseString(file.text)
-    print('DOMTree loaded')
+    print('DOMTree parsed')
     cNodes = DOMTree.childNodes
     nodes = cNodes[0].getElementsByTagName("o")
     for node in nodes:
         price = node.getAttribute("price")
         name = node.getElementsByTagName("name")[0].firstChild.wholeText
-        if name not in books.keys():
-            books[name] = {'virtualo': price}
-        else:
-            books[name].update({'virtualo': price})
-    '''print('plain text created')
+        
+    print('plain text created')
     soup = BeautifulSoup(plain_text, "lxml-xml")
     print('soup loaded')
     book = soup.find("o")
