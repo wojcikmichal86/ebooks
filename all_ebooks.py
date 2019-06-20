@@ -9,8 +9,8 @@ def get_all():
 	print("Updating database on: "+str(datetime.now()))
 	updated = "Last updated on: "+str(datetime.now())
 	books = {}
-	#woblink(books)
-	virtualo(books)
+	woblink(books)
+	#virtualo(books)
 	#ebp_audio(books)
 	#ebookpoint(books)
 

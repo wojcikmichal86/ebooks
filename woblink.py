@@ -1,25 +1,40 @@
 import requests
 from bs4 import BeautifulSoup
 from time import time
+from xml.etree import ElementTree
+import os
 
-
+def get_page(filename, url):
+    if os.path.isfile(filename):
+        with open(filename, 'r') as input_data:
+            content = input_data.read()
+    else:
+        response = requests.get(url)
+        content = response.text
+        with open(filename, 'w') as output_data:
+            output_data.write(content)
+    return(content)
 
 def woblink(books):
     current_time = time()
-    file = requests.get('http://woblink.com/ads4books.xml')
-    file.encoding = "utf-8"
-    plain_text = file.text
-    soup = BeautifulSoup(plain_text, "lxml-xml")
-    names = soup.findAll("name")
-    book = soup.find("o")
-    while book.find_next_sibling('o') is not None:
-        name = book.find('name')
-        if name.contents[0] not in books.keys():
-            books[name.contents[0]] = {'virtualo': book['price']}
-        else:
-            books[name.contents[0]].update({'virtualo': book['price']})
-        book2 = book.find_next_sibling('o')
-        book = book2
+    print('requesting file')
+    get_page('ksiazki.xml', 'http://woblink.com/ads4books.xml')
+
+    xml_iter = ElementTree.iterparse('ksiazki.xml', events=('start', 'end'))
+    for event, elem in xml_iter:
+        if elem.tag == 'o':
+            try:
+                name = elem.find('name').text
+                print(name)
+                print(elem.attrib['price'])
+                if name not in books.keys():
+                    books[name] = {'virtualo': elem.attrib['price']}
+                else:
+                    books[name].update({'virtualo': elem.attrib['price']})
+            except:
+                pass
+        elem.clear()
+
     print(time() - current_time)
     print('Current number of books: '+str(len(books)))
 
