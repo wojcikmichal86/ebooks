@@ -1,67 +1,41 @@
 import requests
 from time import time
-from xml.dom import minidom
+from xml.etree import ElementTree
+import os
 
-
+def get_page(filename, url):
+    if os.path.isfile(filename):
+        with open(filename, 'r') as input_data:
+            content = input_data.read()
+    else:
+        response = requests.get(url)
+        content = response.text
+        with open(filename, 'w') as output_data:
+            output_data.write(content)
+    return(content)
 
 def virtualo(books):
     current_time = time()
-    print('requesting xml')
-    file = requests.get('https://virtualo.pl/data/ceneo_ebooks.xml')
-    print('xml requested')
-    file.encoding = "utf-8"
-    print('encoded')
-    data = file.text
-    while data.find('<name>') > 0:
-        price_start_index = data.find('price=')
-        data = data[price_start_index+7:]
-        price_end_index = data.find('" ')
-        price = data[:price_end_index]
-        name_start_index = data.find('<name>')
-        name_end_index = data.find('</name>')
-        name = data[name_start_index+15:name_end_index-3]
-        print(name)
-        print(price)
-        print(len(books))
-        if name not in books.keys():
-            books[name] = {'virtualo': price}
-        else:
-            books[name].update({'virtualo': price})
-        data = data[name_end_index+10:]
+    print('requesting file')
+    get_page('virtualo.xml', 'https://virtualo.pl/data/ceneo_ebooks.xml')
 
+    xml_iter = ElementTree.iterparse('virtualo.xml', events=('start', 'end'))
+    for event, elem in xml_iter:
+        if elem.tag == 'o':
+            try:
+                name = elem.find('name').text
+                if name not in books.keys():
+                    books[name] = {'virtualo': elem.attrib['price']}
+                else:
+                    books[name].update({'virtualo': elem.attrib['price']})
+            except:
+                pass
+        elem.clear()
 
-
-    '''
-    DOMTree = minidom.parseString(file.text)
-    print('DOMTree parsed')
-    cNodes = DOMTree.childNodes
-    nodes = cNodes[0].getElementsByTagName("o")
-    for node in nodes:
-        price = node.getAttribute("price")
-        name = node.getElementsByTagName("name")[0].firstChild.wholeText
-        
-    print('plain text created')
-    soup = BeautifulSoup(plain_text, "lxml-xml")
-    print('soup loaded')
-    book = soup.find("o")
-    print('o tag located')
-    i = 1
-    while book.find_next_sibling('o') is not None:
-        #print('book number {} found'.format(i))
-        name = book.find('name')
-
-
-        book2 = book.find_next_sibling('o')
-        book = book2
-        i+=1
-    '''
     print(time() - current_time)
     print('Current number of books: '+str(len(books)))
-    print(books)
+
     return books
 
 if __name__ == "__main__":
     virtualo({})
-
-
-

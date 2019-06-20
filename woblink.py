@@ -1,5 +1,4 @@
 import requests
-from bs4 import BeautifulSoup
 from time import time
 from xml.etree import ElementTree
 import os
@@ -18,15 +17,13 @@ def get_page(filename, url):
 def woblink(books):
     current_time = time()
     print('requesting file')
-    get_page('ksiazki.xml', 'http://woblink.com/ads4books.xml')
+    get_page('woblink.xml', 'http://woblink.com/ads4books.xml')
 
-    xml_iter = ElementTree.iterparse('ksiazki.xml', events=('start', 'end'))
+    xml_iter = ElementTree.iterparse('woblink.xml', events=('start', 'end'))
     for event, elem in xml_iter:
         if elem.tag == 'o':
             try:
                 name = elem.find('name').text
-                print(name)
-                print(elem.attrib['price'])
                 if name not in books.keys():
                     books[name] = {'virtualo': elem.attrib['price']}
                 else:
