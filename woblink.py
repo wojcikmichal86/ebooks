@@ -34,6 +34,7 @@ def woblink(books):
 
     print(time() - current_time)
     print('Current number of books: '+str(len(books)))
+    os.remove('woblink.xml')
 
     return books
 
